@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#EDF6FF</color>
+
+    <color name="PrimaryColor">0x5631E8FF</color>
+    <color name="SurfaceColor">0xEDF6FFFF</color>
+    <color name="SurfaceVariantColor">0xF7F7FFFF</color>
+
+    <color name="GrassGreen">0x2AF9C9FF</color>
+    <color name="FireRed">0xFF4F68FF</color>
+    <color name="ElectricYellow">0xFFD833FF</color>
+
+    <color name="IconTint">0x0E094065</color>
+    <color name="IconTintSelected">0xFFFFFFFF</color>
+
+    <color name="TextPrimaryColor">0x0E0940FF</color>
+    <color name="TextSecondaryColor">0x0E094065</color>
+</resources>

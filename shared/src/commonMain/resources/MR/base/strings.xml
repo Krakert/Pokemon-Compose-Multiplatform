@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pokedex</string>
+    <string name="error_generic">Something went wrong.</string>
+    <string name="overview_pokemon_title">All Pokémon</string>
+    <string name="overview_favorites_title">My favorites</string>
+    <string name="overview_item_pokemons">Pokémon</string>
+    <string name="overview_item_favorites">Favorites</string>
+    <string name="overview_search_hint">Search for Pokémon…</string>
+    <string name="details_unable_to_load">Unable to load the Evolution chain</string>
+    <string name="text_button_retry">Click here to try again</string>
+</resources>
