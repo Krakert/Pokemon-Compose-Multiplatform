@@ -35,6 +35,7 @@ import com.kraker.pokemon.pokemon.detail.components.TypeBadgeRow
 import com.kraker.pokemon.presentation.OnDisplay
 import com.kraker.pokemon.presentation.OnError
 import com.kraker.pokemon.presentation.OnLoading
+import com.kraker.pokemon.presentation.components.PokemonLoader
 import com.kraker.pokemon.presentation.components.Screen
 import com.kraker.pokemon.presentation.detail.model.PokemonDetailDisplay
 import dev.icerock.moko.resources.compose.colorResource
@@ -75,7 +76,7 @@ fun PokemonDetailScreen(
                 .fillMaxSize()
                 .background(colorResource(SurfaceColor))
         ) {
-
+            PokemonLoader(Modifier.align(Alignment.Center))
         }
     }
 

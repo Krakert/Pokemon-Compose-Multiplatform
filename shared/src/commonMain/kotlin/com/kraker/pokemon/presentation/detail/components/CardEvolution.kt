@@ -49,14 +49,16 @@ fun CardEvolution(evolution: PokemonDetailEvolutionDisplay) {
                 modifier = Modifier.size(LocalDimensions.current.boxEvolutionSize)
                     .background(MaterialTheme.colors.surface)
             ) {
-                Image(
-                    painter = rememberAsyncImagePainter(
-                        evolution.imageUrl
-                    ),
-                    contentDescription = evolution.name,
-                    modifier = Modifier.size(LocalDimensions.current.evolutionImageSize),
-                    contentScale = ContentScale.Crop,
-                )
+                CenterElement {
+                    Image(
+                        painter = rememberAsyncImagePainter(
+                            evolution.imageUrl
+                        ),
+                        contentDescription = evolution.name,
+                        modifier = Modifier.size(LocalDimensions.current.evolutionImageSize),
+                        contentScale = ContentScale.Crop,
+                    )
+                }
             }
             Column(
                 verticalArrangement = Arrangement.Center,

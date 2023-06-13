@@ -9,4 +9,6 @@
     <string name="overview_search_hint">Search for Pokémon…</string>
     <string name="details_unable_to_load">Unable to load the Evolution chain</string>
     <string name="text_button_retry">Click here to try again</string>
+    <string name="Loading_message">Loading data</string>
+    <string name="empty_favourite">Nothing to see here, add some Pokémons!</string>
 </resources>

@@ -76,6 +76,10 @@ kotlin {
                     implementation(client)
                     implementation(jvm)
                 }
+
+                with(Deps.Android.Compose){
+                    implementation(lottie)
+                }
             }
         }
         val iosX64Main by getting

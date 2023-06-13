@@ -18,7 +18,7 @@ object Versions {
     const val activityCompose = "1.7.2"
     const val composeNavigation = "2.5.0"
     const val composeCoil = "2.1.0"
-    const val composeLottie = "5.2.0"
+    const val composeLottie = "6.0.1"
     const val composeAccompanist = "0.23.1"
     const val composePaging = "1.0.0-alpha17"
 

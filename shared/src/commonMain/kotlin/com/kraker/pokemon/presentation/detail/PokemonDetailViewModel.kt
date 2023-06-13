@@ -3,7 +3,7 @@ package com.kraker.pokemon.presentation.detail
 import com.kraker.pokemon.domain.pokemon.AddFavouritePokemon
 import com.kraker.pokemon.domain.pokemon.GetPokemonDetail
 import com.kraker.pokemon.domain.pokemon.RemoveFavouritePokemon
-import com.kraker.pokemon.presentation.DisplayState
+import com.kraker.pokemon.presentation.ContentState
 import com.kraker.pokemon.presentation.OnDisplay
 import com.kraker.pokemon.presentation.OnError
 import com.kraker.pokemon.presentation.OnLoading
@@ -24,8 +24,8 @@ class PokemonDetailViewModel: ViewModel(), KoinComponent {
         private val addFavouritePokemon: AddFavouritePokemon by inject()
         private val removeFavouritePokemon: RemoveFavouritePokemon by inject()
 
-    private val mutableContent = MutableStateFlow<DisplayState<PokemonDetailDisplay>>(OnLoading)
-    val pokemonDetailDisplayState: StateFlow<DisplayState<PokemonDetailDisplay>> = mutableContent
+    private val mutableContent = MutableStateFlow<ContentState<PokemonDetailDisplay>>(OnLoading)
+    val pokemonDetailDisplayState: StateFlow<ContentState<PokemonDetailDisplay>> = mutableContent
 
     fun fetchDetails(id: Int) {
         viewModelScope.launch {

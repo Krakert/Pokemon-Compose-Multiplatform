@@ -3,7 +3,7 @@ package com.kraker.pokemon.presentation.overview
 import com.kraker.pokemon.domain.pokemon.FetchFavouritePokemons
 import com.kraker.pokemon.domain.pokemon.GetFavouriteStorage
 import com.kraker.pokemon.domain.pokemon.GetPokemonOverview
-import com.kraker.pokemon.presentation.DisplayState
+import com.kraker.pokemon.presentation.ContentState
 import com.kraker.pokemon.presentation.OnDisplay
 import com.kraker.pokemon.presentation.OnError
 import com.kraker.pokemon.presentation.OnLoading
@@ -28,12 +28,14 @@ class PokemonOverviewViewModel : ViewModel(), KoinComponent {
     private val getFavouriteStorage: GetFavouriteStorage by inject()
     private val fetchFavouritePokemons: FetchFavouritePokemons by inject()
 
-    private val mutableContentFlow = MutableStateFlow<DisplayState<PokemonOverviewDisplay>>(OnLoading)
-    val pokemonOverviewDisplayState: StateFlow<DisplayState<PokemonOverviewDisplay>> = mutableContentFlow
+    private val mutableContentFlow = MutableStateFlow<ContentState<PokemonOverviewDisplay>>(OnLoading)
+    val pokemonOverviewContentState: StateFlow<ContentState<PokemonOverviewDisplay>> = mutableContentFlow
 
     private val mutableIsLoading: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = mutableIsLoading
 
+    private val mutablePageFlow = MutableStateFlow(PokemonOverviewContent.ALL_POKEMON)
+    val pokemonOverviewPageState: MutableStateFlow<PokemonOverviewContent> = mutablePageFlow
 
     private var currentBatch: Int = 0
 
@@ -44,19 +46,14 @@ class PokemonOverviewViewModel : ViewModel(), KoinComponent {
     fun changeContent(content: PokemonOverviewContent) {
         when (content) {
             PokemonOverviewContent.ALL_POKEMON -> {
-                when (mutableContentFlow.value) {
-                    is OnDisplay -> (mutableContentFlow.value as OnDisplay<PokemonOverviewDisplay>).display.pokemons =
-                        emptyList()
-
-                    else -> { /* no-op */
-                    }
-                }
+                mutablePageFlow.value = PokemonOverviewContent.ALL_POKEMON
+                mutableContentFlow.value = OnLoading
                 currentBatch = 0
-                fetchPokemonOverview(currentBatch)
             }
 
             PokemonOverviewContent.FAVORITES -> {
-                fetchFavoritesOverview()
+                mutablePageFlow.value = PokemonOverviewContent.FAVORITES
+                mutableContentFlow.value = OnLoading
             }
         }
     }
@@ -65,8 +62,11 @@ class PokemonOverviewViewModel : ViewModel(), KoinComponent {
         fetchPokemonOverview(currentBatch + 1)
     }
 
+    fun fetchFavourite() {
+        fetchFavoritesOverview()
+    }
 
-    private fun fetchPokemonOverview(batch: Int) {
+    fun fetchPokemonOverview(batch: Int = currentBatch) {
         viewModelScope.launch {
             mutableIsLoading.emit(true)
             getPokemonOverview(batch)
@@ -92,24 +92,22 @@ class PokemonOverviewViewModel : ViewModel(), KoinComponent {
     private fun fetchFavoritesOverview() {
         viewModelScope.launch {
             getFavouriteStorage().onSuccess { favouritePokemons ->
-                println(favouritePokemons)
+                mutableIsLoading.emit(true)
                 val list = arrayListOf<PokemonOverviewItemDisplay>()
-                mutableContentFlow.emit(OnLoading)
                 if (favouritePokemons.isNotEmpty()) {
                     fetchFavouritePokemons(favouritePokemons).onSuccess { pokemonOverviewItem ->
                         pokemonOverviewItem.forEach { item ->
                             list.add(pokemonOverviewItemDisplayMapper.map(item))
                         }
-                        mutableContentFlow.emit(
-                            OnDisplay(
-                                PokemonOverviewDisplay(
-                                    selectedContent = PokemonOverviewContent.FAVORITES, pokemons = list
-                                )
-                            )
-                        )
-
                     }
                 }
+                mutableContentFlow.emit(
+                    OnDisplay(
+                        PokemonOverviewDisplay(
+                            selectedContent = PokemonOverviewContent.FAVORITES, pokemons = list
+                        )
+                    )
+                )
             }.onFailure { mutableContentFlow.emit(OnError(it)) }
         }
     }

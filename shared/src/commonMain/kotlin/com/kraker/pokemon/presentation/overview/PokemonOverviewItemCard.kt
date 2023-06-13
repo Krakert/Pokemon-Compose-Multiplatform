@@ -34,7 +34,8 @@ import dev.icerock.moko.resources.compose.painterResource
 fun PokemonOverviewItemCard(
     modifier: Modifier = Modifier,
     item: PokemonOverviewItemDisplay,
-    onClick: (Int) -> Unit
+    onClick: (Int) -> Unit,
+    onShowOptions: () -> Unit,
 ) {
     Card(
         modifier = modifier,
@@ -62,7 +63,9 @@ fun PokemonOverviewItemCard(
                     id = item.idWithLeadingZeros
                 )
             }
-            PokemonDetails(id = item.id, name = item.name)
+            PokemonDetails(name = item.name, onShowOptions = {
+                onShowOptions()
+            })
         }
     }
 }
@@ -87,7 +90,7 @@ private fun PokemonIdBadge(modifier: Modifier = Modifier, id: String) {
 }
 
 @Composable
-private fun PokemonDetails(id: Int, name: String) {
+private fun PokemonDetails(name: String, onShowOptions:() -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -106,7 +109,9 @@ private fun PokemonDetails(id: Int, name: String) {
             modifier = Modifier.weight(1f, true)
         )
         IconButton(
-            onClick = { /*TODO*/ },
+            onClick = {
+                onShowOptions()
+            },
             Modifier.size(24.dp)
         ) {
             Icon(painter = painterResource(MR.images.ic_menu), contentDescription = null)
