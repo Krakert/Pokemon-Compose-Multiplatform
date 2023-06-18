@@ -1,6 +1,7 @@
 package com.kraker.pokemon.presentation.overview.component
 
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -57,6 +58,7 @@ fun OverviewSearchBar(onQueryChanged: (String) -> Unit, modifier: Modifier = Mod
                     contentDescription = null,
                     tint = colorResource(TextPrimaryColor)
                 )
+                focusManager.clearFocus()
             }
         },
         placeholder = {
@@ -71,6 +73,6 @@ fun OverviewSearchBar(onQueryChanged: (String) -> Unit, modifier: Modifier = Mod
             unfocusedIndicatorColor = Color.Transparent,
             cursorColor = MaterialTheme.colors.onSurface
         ),
-        textStyle = searchQuery()
+        textStyle = searchQuery(),
     )
 }

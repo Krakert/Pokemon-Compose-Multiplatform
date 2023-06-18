@@ -29,7 +29,7 @@ import com.kraker.pokemon.presentation.theme.dimensions
 @Composable
 fun OverviewTopBar(title: String, showSearch: Boolean, onSearch: (String) -> Unit) {
     val showTitle = remember { mutableStateOf(true) }
-    val height by animateDpAsState(targetValue = if (showTitle.value) 175.dp else 90.dp)
+    val height by animateDpAsState(targetValue = if (showTitle.value) 175.dp else 140.dp)
 
     TopAppBar(
         modifier = Modifier.height(height)
